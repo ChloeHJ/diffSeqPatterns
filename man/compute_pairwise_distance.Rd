@@ -7,6 +7,8 @@
 compute_pairwise_distance(peptides, method = "hamming")
 }
 \arguments{
+\item{peptides}{list of peptides}
+
 \item{method}{Method for distance calculation, default is 'hamming'. Options include
 "osa", "lv", "dl", "hamming", "lcs", "qgram", "cosine", "jaccard", "jw", soundex".
 See \code{'stringdist-metric'} for more details.}
@@ -18,6 +20,6 @@ distance matrix
 Compute distance among peptides
 }
 \examples{
-distance_matrix <- compute_pairwise_distance(peptides = c(pos_peptides, neg_peptides))
+distance_matrix <- compute_pairwise_distance(peptides = c(pos_peptides[1:50], neg_peptides[1:60]))
 
 }

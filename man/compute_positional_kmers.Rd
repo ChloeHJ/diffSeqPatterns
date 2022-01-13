@@ -6,6 +6,11 @@
 \usage{
 compute_positional_kmers(pos_peptides, neg_peptides)
 }
+\arguments{
+\item{pos_peptides}{list of peptides analyzed for enrichment}
+
+\item{neg_peptides}{list of peptides analyzed for depletion}
+}
 \value{
 data table summarizing number of positional k-mer motifs appeared in postiive and negative peptide lists
 and ratio of counts normalized by the total number of positive and negative peptides respectively

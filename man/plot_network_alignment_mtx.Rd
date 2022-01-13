@@ -5,7 +5,7 @@
 \title{Plot network graph from pairwise alignment matrix}
 \usage{
 plot_network_alignment_mtx(
-  adjacency_mtx,
+  adjacency_matrix,
   data = NULL,
   peptide_id_col = "ContactPositions",
   color_col = "Immunogenicity",
@@ -18,11 +18,16 @@ plot_network_alignment_mtx(
 )
 }
 \arguments{
+\item{adjacency_matrix}{output from \code{compute_pairwise_alignment}}
+
 \item{data}{data to denote node colors - minimum columns are peptide and color_id}
 
 \item{peptide_id_col}{column name for peptide_id e.g. Peptide}
 
 \item{color_col}{column name for color annotation e.g. Immunogenicity}
+
+\item{alignment_threshold}{threshold to show e.g. alignment_threshold = 0 means
+showing edges that have >= 0 alignment score}
 
 \item{vertex.label.degree}{position of node label}
 
@@ -33,8 +38,6 @@ plot_network_alignment_mtx(
 \item{vertex.label.cex}{node font size}
 
 \item{label_vertex}{TRUE/FALSE to print sequence for each node}
-
-\item{adjacency_matrix}{output from \code{compute_pairwise_alignment}}
 }
 \value{
 Network graph showing distance between peptide sequences
@@ -43,8 +46,7 @@ Network graph showing distance between peptide sequences
 Plot network graph from pairwise alignment matrix
 }
 \examples{
-iedbdata <- read.csv(file = 'peptide_data.csv')
-adjacency_matrix <- compute_pairwise_distance(peptides = c(pos_peptides, neg_peptides))
+adjacency_matrix <- compute_pairwise_distance(peptides = c(pos_peptides[1:50], neg_peptides[1:60]))
 p1 <- plot_network_alignment_mtx(adjacency_matrix, data = NULL)
 p2 <- plot_network_alignment_mtx(adjacency_matrix, data = iedbdata,
                            peptide_id_col = 'ContactPositions',  color_col = 'Immunogenicity',

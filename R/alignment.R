@@ -11,9 +11,9 @@
 #' @return alignment matrix
 #'
 #' @examples
-#' adjacency_matrix <- compute_pairwise_distance(peptides = c(pos_peptides, neg_peptides))
-#' adjacency_matrix_positive <- compute_pairwise_alignment(peptides = pos_peptides)
-#' adjacency_matrix_negative <- compute_pairwise_alignment(peptides = neg_peptides)
+#' adjacency_matrix <- compute_pairwise_distance(peptides = c(pos_peptides[1:50], neg_peptides[1:60]))
+#' adjacency_matrix_positive <- compute_pairwise_alignment(peptides = pos_peptides[1:50])
+#' adjacency_matrix_negative <- compute_pairwise_alignment(peptides = neg_peptides[1:60])
 #'
 #' @export
 compute_pairwise_alignment <- function(peptides, substitutionMatrix = 'BLOSUM62', alignType = 'global',
@@ -26,7 +26,8 @@ compute_pairwise_alignment <- function(peptides, substitutionMatrix = 'BLOSUM62'
     peptide_1 <- AAString(peptides[row])
     align <- lapply(peptides, function(elt_j) {
       pairwiseAlignment(peptide_1, AAString(elt_j), substitutionMatrix=substitutionMatrix,
-                        type=alignType, gapOpening = gapOpening, gapExtension = gapExtension, scoreOnly = TRUE)
+                        type=alignType, gapOpening = gapOpening,
+                        gapExtension = gapExtension, scoreOnly = TRUE)
     });
     mtx[row, ] <- unlist(align)
   }
@@ -46,9 +47,9 @@ compute_pairwise_alignment <- function(peptides, substitutionMatrix = 'BLOSUM62'
 #' adjacency_matrix <- compute_pairwise_distance(peptides = c(pos_peptides[1:50], neg_peptides[1:60]))
 #' adjacency_matrix_positive <- compute_pairwise_distance(peptides = pos_peptides[1:50])
 #'
-#' iedbdata <- read.csv(file = 'peptide_data.csv')
 #' col_data <- iedbdata %>% filter(ContactPositions %in% colnames(adjacency_matrix)) %>%
-#'   select(ContactPositions, Immunogenicity) %>% distinct() %>% column_to_rownames(var =  'ContactPositions')
+#'   select(ContactPositions, Immunogenicity) %>% distinct() %>%
+#'   column_to_rownames(var =  'ContactPositions')
 #' p1 <- plot_heatmap_alignment_mtx(adjacency_matrix, col_data)
 #' p2 <- plot_heatmap_alignment_mtx(adjacency_matrix_positive, col_data)
 #'
@@ -76,12 +77,13 @@ plot_heatmap_alignment_mtx <- function(adjacency_matrix, col_data){
 #' @param vertex.size node size
 #' @param vertex.label.cex node font size
 #' @param label_vertex TRUE/FALSE to print sequence for each node
+#' @param alignment_threshold threshold to show e.g. alignment_threshold = 0 means
+#' showing edges that have >= 0 alignment score
 #'
 #' @return Network graph showing distance between peptide sequences
 #'
 #' @examples
-#' iedbdata <- read.csv(file = 'peptide_data.csv')
-#' adjacency_matrix <- compute_pairwise_distance(peptides = c(pos_peptides, neg_peptides))
+#' adjacency_matrix <- compute_pairwise_distance(peptides = c(pos_peptides[1:50], neg_peptides[1:60]))
 #' p1 <- plot_network_alignment_mtx(adjacency_matrix, data = NULL)
 #' p2 <- plot_network_alignment_mtx(adjacency_matrix, data = iedbdata,
 #'                            peptide_id_col = 'ContactPositions',  color_col = 'Immunogenicity',
@@ -92,7 +94,7 @@ plot_heatmap_alignment_mtx <- function(adjacency_matrix, col_data){
 #'                            edge.weight = 0.2,  vertex.size= 5,   label_vertex=FALSE)
 #'
 #' @export
-plot_network_alignment_mtx <- function(adjacency_mtx, data = NULL,
+plot_network_alignment_mtx <- function(adjacency_matrix, data = NULL,
                                        peptide_id_col = 'ContactPositions',  color_col = 'Immunogenicity',
                                        alignment_threshold = 0,
                                        vertex.label.degree = 0,  edge.weight = 0.2,

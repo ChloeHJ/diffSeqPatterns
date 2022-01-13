@@ -7,6 +7,10 @@
 compute_ngrams(pos_peptides, neg_peptides, ngram_lengths = c(2, 3, 4, 5))
 }
 \arguments{
+\item{pos_peptides}{list of peptides analyzed for enrichment}
+
+\item{neg_peptides}{list of peptides analyzed for depletion}
+
 \item{ngram_lengths}{list of n to compute for n-grams (e.g. 2 for n-gram)}
 }
 \value{

@@ -22,9 +22,9 @@ Plot heatmap from pairwise alignment matrix
 adjacency_matrix <- compute_pairwise_distance(peptides = c(pos_peptides[1:50], neg_peptides[1:60]))
 adjacency_matrix_positive <- compute_pairwise_distance(peptides = pos_peptides[1:50])
 
-iedbdata <- read.csv(file = 'peptide_data.csv')
 col_data <- iedbdata \%>\% filter(ContactPositions \%in\% colnames(adjacency_matrix)) \%>\%
-  select(ContactPositions, Immunogenicity) \%>\% distinct() \%>\% column_to_rownames(var =  'ContactPositions')
+  select(ContactPositions, Immunogenicity) \%>\% distinct() \%>\%
+  column_to_rownames(var =  'ContactPositions')
 p1 <- plot_heatmap_alignment_mtx(adjacency_matrix, col_data)
 p2 <- plot_heatmap_alignment_mtx(adjacency_matrix_positive, col_data)
 

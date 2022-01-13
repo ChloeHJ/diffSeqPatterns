@@ -10,8 +10,6 @@
 #' \item Can be applied to any set of two peptide groups;
 #' }
 #'
-#' To learn more about proBatch, start with the vignettes:
-#' \code{browseVignettes(package = "diffSeqpatterns")}
 #'
 #' @section Section:
 #' Common arguments to the functions.
@@ -32,19 +30,24 @@
 #' @import stringdist
 #' @importFrom grDevices colorRampPalette
 #' @importFrom grDevices png pdf dev.off
-#' @importFrom magrittr %>%
 #' @importFrom RColorBrewer brewer.pal brewer.pal.info
-#' @importFrom rlang :=
-#' @importFrom rlang !!
-#' @importFrom rlang !!!
-#' @importFrom rlang sym syms
-#' @importFrom viridis viridis_pal
 #' @importFrom scales muted
 #' @importFrom data.table rbindlist
+#' @importFrom stats predict
 #'
 #' @docType package
 #' @name diffSeqPatterns
+if(getRversion() >= "2.15.1")  utils::globalVariables(c( "pos_prop", "neg_prop", "pattern",
+                                                         "count_neg",   "count_pos", "normCount_pos",
+                                                         "normCount_neg", "ratio",
+                                                         "ratioQual", 'counts', 'ngrams', 'rownames_to_column',
+                                                         'label', 'position', 'aa', 'ggseqlogo',
+                                                          'freq', 'prop', 'unique.Vector' ,'pos_freq',
+                                                         'neg_freq', 'str_detect'
+                                                         ))
+NULL
 
 
 
-
+#### To learn more about proBatch, start with the vignettes:
+##### \code{browseVignettes(package = "diffSeqPatterns")}

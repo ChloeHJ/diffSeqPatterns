@@ -26,7 +26,8 @@ plot_network_distance_mtx(
 
 \item{color_col}{column name for color annotation e.g. Immunogenicity}
 
-\item{distance_threshold}{distance threshold to show e.g. distance_threshold = 3 means showing edges that have less or equal to 3 distance difference}
+\item{distance_threshold}{distance threshold to show e.g. distance_threshold = 3 means
+showing edges that have less or equal to 3 distance difference}
 
 \item{vertex.label.degree}{position of node label}
 
@@ -45,7 +46,6 @@ Network graph showing distance between peptide sequences
 Plot network graph from distance adjacency matrix
 }
 \examples{
-iedbdata <- read.csv(file = 'peptide_data.csv')
 distance_mtx <- compute_pairwise_distance(peptides = c(pos_peptides[1:50], neg_peptides[1:60]))
 p1 <- plot_network_distance_mtx(distance_mtx, data = iedbdata,
                           peptide_id_col = 'ContactPositions',  color_col = 'Immunogenicity',

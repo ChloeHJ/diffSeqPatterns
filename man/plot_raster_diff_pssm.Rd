@@ -7,7 +7,7 @@
 plot_raster_diff_pssm(diff_pssm)
 }
 \arguments{
-\item{diff_pssm_mtx}{output matrix from \code{compute_diff_pssm}}
+\item{diff_pssm}{output matrix from \code{compute_diff_pssm}}
 }
 \value{
 PSSM plot

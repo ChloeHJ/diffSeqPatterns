@@ -8,7 +8,7 @@
 #' @return distance matrix
 #'
 #' @examples
-#' distance_matrix <- compute_pairwise_distance(peptides = c(pos_peptides, neg_peptides))
+#' distance_matrix <- compute_pairwise_distance(peptides = c(pos_peptides[1:50], neg_peptides[1:60]))
 #'
 #' @export
 compute_pairwise_distance <- function(peptides, method = 'hamming'){
@@ -39,10 +39,11 @@ compute_pairwise_distance <- function(peptides, method = 'hamming'){
 #'
 #' @return heatmap colored by distance between peptide sequences
 #' @examples
-#' distance_mtx <- compute_pairwise_distance(peptides = c(pos_peptides, neg_peptides))
+#' distance_mtx <- compute_pairwise_distance(peptides = c(pos_peptides[1:50], neg_peptides[1:60]))
 #' col_data <- iedbdata %>% filter(ContactPositions %in% colnames(adjacency_matrix)) %>%
-#'   select(ContactPositions, Immunogenicity) %>% distinct() %>% column_to_rownames(var =  'ContactPositions')
-#' plot_heatmap_distance_mtx(distance_mtx, col_data)
+#'   select(ContactPositions, Immunogenicity) %>% distinct() %>%
+#'   column_to_rownames(var =  'ContactPositions')
+#' p <- plot_heatmap_distance_mtx(distance_mtx, col_data)
 #'
 #' @export
 plot_heatmap_distance_mtx <- function(distance_mtx, col_data){
@@ -66,7 +67,8 @@ plot_heatmap_distance_mtx <- function(distance_mtx, col_data){
 #' @param data data to denote node colors - minimum columns are peptide and color_id
 #' @param peptide_id_col column name for peptide_id e.g. Peptide
 #' @param color_col column name for color annotation e.g. Immunogenicity
-#' @param distance_threshold distance threshold to show e.g. distance_threshold = 3 means showing edges that have less or equal to 3 distance difference
+#' @param distance_threshold distance threshold to show e.g. distance_threshold = 3 means
+#' showing edges that have less or equal to 3 distance difference
 #' @param vertex.label.degree position of node label
 #' @param edge.weight distance*edge.weight to represent thickness of edges in network plot
 #' @param vertex.size node size
@@ -76,7 +78,6 @@ plot_heatmap_distance_mtx <- function(distance_mtx, col_data){
 #' @return Network graph showing distance between peptide sequences
 #'
 #' @examples
-#' iedbdata <- read.csv(file = 'peptide_data.csv')
 #' distance_mtx <- compute_pairwise_distance(peptides = c(pos_peptides[1:50], neg_peptides[1:60]))
 #' p1 <- plot_network_distance_mtx(distance_mtx, data = iedbdata,
 #'                           peptide_id_col = 'ContactPositions',  color_col = 'Immunogenicity',

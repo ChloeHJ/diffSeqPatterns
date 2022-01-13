@@ -6,6 +6,11 @@
 \usage{
 compute_diff_pssm(pos_peptides, neg_peptides)
 }
+\arguments{
+\item{pos_peptides}{list of peptides analyzed for enrichment}
+
+\item{neg_peptides}{list of peptides analyzed for depletion}
+}
 \value{
 differnetial pssm matrix
 }

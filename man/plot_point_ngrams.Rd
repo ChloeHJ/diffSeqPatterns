@@ -8,6 +8,12 @@ plot_point_ngrams(ngram_table, ratio_threshold = 4, n_threshold = 6)
 }
 \arguments{
 \item{ngram_table}{output matrix from \code{compute_ngrams}}
+
+\item{ratio_threshold}{ratio threshold to label n-grams}
+
+\item{n_threshold}{for n-grams that are only present in either positive or negative list,
+threshold to label n-grams, e.g. n_threshold = 4, only label motif when there are >= 4 peptides
+containing the motif in either positive or negative peptide lists.}
 }
 \value{
 scatterplot

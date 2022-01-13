@@ -35,6 +35,10 @@ compute_ngrams <- function(pos_peptides, neg_peptides, ngram_lengths = c(2, 3, 4
 
 #' Visualize enrichment or depletion score of n-grams in scatterplot
 #' @param ngram_table output matrix from \code{compute_ngrams}
+#' @param ratio_threshold ratio threshold to label n-grams
+#' @param n_threshold for n-grams that are only present in either positive or negative list,
+#' threshold to label n-grams, e.g. n_threshold = 4, only label motif when there are >= 4 peptides
+#' containing the motif in either positive or negative peptide lists.
 #' @return scatterplot
 #'
 #' @examples
@@ -69,6 +73,11 @@ plot_point_ngrams <- function(ngram_table,  ratio_threshold = 4,  n_threshold = 
 
 #' Visualize top enriched and depleted n-grams in barplot
 #' @param ngram_table output matrix from \code{compute_ngrams}
+#' @param top_n number of top n-grams from positive and negative (respectively) to visualize
+#' @param ratio_threshold ratio threshold to label n-grams
+#' @param n_threshold for n-grams that are only present in either positive or negative list,
+#' threshold to label n-grams, e.g. n_threshold = 4, only label motif when there are >= 4 peptides
+#' containing the motif in either positive or negative peptide lists.
 #' @return barplot
 #'
 #' @examples

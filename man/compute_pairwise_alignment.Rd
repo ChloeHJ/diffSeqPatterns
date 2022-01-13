@@ -13,6 +13,8 @@ compute_pairwise_alignment(
 )
 }
 \arguments{
+\item{peptides}{list of peptides}
+
 \item{substitutionMatrix}{substitution matrix to compute pairwise alignment score,
 examples include 'BLOSUM62', 'BLOSUM50' or can input matrix of interest e.g. \code{data('BLOSUM62')}}
 
@@ -30,8 +32,8 @@ alignment matrix
 Compute pairwise alignment between peptides
 }
 \examples{
-adjacency_matrix <- compute_pairwise_distance(peptides = c(pos_peptides, neg_peptides))
-adjacency_matrix_positive <- compute_pairwise_alignment(peptides = pos_peptides)
-adjacency_matrix_negative <- compute_pairwise_alignment(peptides = neg_peptides)
+adjacency_matrix <- compute_pairwise_distance(peptides = c(pos_peptides[1:50], neg_peptides[1:60]))
+adjacency_matrix_positive <- compute_pairwise_alignment(peptides = pos_peptides[1:50])
+adjacency_matrix_negative <- compute_pairwise_alignment(peptides = neg_peptides[1:60])
 
 }

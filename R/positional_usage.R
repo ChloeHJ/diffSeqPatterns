@@ -31,7 +31,7 @@ compute_diff_pssm <- function(pos_peptides, neg_peptides){
 
 
 #' Plot differential PSSM into heatmap
-#' @param diff_pssm_mtx output matrix from \code{compute_diff_pssm}
+#' @param diff_pssm output matrix from \code{compute_diff_pssm}
 #'
 #' @return PSSM plot
 #'
