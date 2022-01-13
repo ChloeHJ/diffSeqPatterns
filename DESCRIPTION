@@ -1,0 +1,26 @@
+Package: diffSeqPatterns
+Type: Package
+Title: Differential peptide sequence patterns between two groups
+Version: 0.1.0
+Author: Chloe H. Lee
+Maintainer: Chloe H. Lee <chloehyun-jung.lee@rdm.ox.ac.uk>
+Description: This packages examines differential sequence patterns between two groups by analyzing enrichment or depletion of 1) amino acid usage in each positions, 2) positional k-mer motifs, 3) n-grams, and 4) inter-sequence distances. 
+License: GPL-2
+Encoding: UTF-8
+LazyData: true
+Imports:
+  dplyr,
+  caret,
+  ggplot2,
+  Biostrings,
+  reshape,
+  ngram,
+  ggrepel,
+  igraph,
+  PepTools,
+  pheatmap,
+  scales,
+  data.table,
+  RColorBrewer,
+  stringdist
+RoxygenNote: 7.1.1
