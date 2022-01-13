@@ -101,13 +101,13 @@ plot_network_alignment_mtx <- function(adjacency_matrix, data = NULL,
                                        vertex.size= 5,  vertex.label.cex = 0.8, label_vertex=FALSE){
 
 
-  diag(adjacency_mtx) <- 0
-  adjacency_mtx[adjacency_mtx<alignment_threshold] <- 0
-  share.igraph <- graph_from_adjacency_matrix(adjacency_mtx, weighted=TRUE)
+  diag(adjacency_matrix) <- 0
+  adjacency_matrix[adjacency_matrix<alignment_threshold] <- 0
+  share.igraph <- graph_from_adjacency_matrix(adjacency_matrix, weighted=TRUE)
 
   # generate color annotation table
   if(!is.null(data)){
-    data <- data[match(colnames(adjacency_mtx), data[[peptide_id_col]]),] %>%
+    data <- data[match(colnames(adjacency_matrix), data[[peptide_id_col]]),] %>%
       dplyr::select(!!c(peptide_id_col, color_col))
 
     getPalette = colorRampPalette(brewer.pal(6, "Dark2"))
