@@ -109,7 +109,7 @@ plot_bar_top_ngrams <- function(ngram_table, top_n = 10,
   g <- data_plot %>% ggplot(aes(x=ngrams, y=counts, fill=class)) +
     scale_fill_brewer(palette='Dark2') +
     geom_bar(stat="identity", width = 0.7)+theme_bw() +
-    theme(axis.text.x = element_text(angle = 90,  hjust=1),
+    theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1),
           plot.title = element_text(hjust = 0.5))
 
   return(g)

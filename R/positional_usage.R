@@ -18,7 +18,19 @@ compute_diff_pssm <- function(pos_peptides, neg_peptides){
   colnames(A_neg_PSSM) <- 1:ncol(A_neg_PSSM)
   colnames(A_pos_PSSM) <- 1:ncol(A_pos_PSSM)
 
-  setdiff( rownames(A_pos_PSSM), rownames(A_neg_PSSM))
+  amino_acids <- c("A", "C", "D", "E" ,"F", "G" ,"H" ,"I" ,"K" ,"L" ,"M", "N" ,"P", "Q" ,"R" ,"S" ,"T" ,"V" ,"W" ,"Y")
+  if(!identical(rownames(A_pos_PSSM), amino_acids)){
+    diff_aa <- setdiff(amino_acids, rownames(A_pos_PSSM))
+    A_pos_PSSM <- rbind(A_pos_PSSM,
+                        matrix(0, ncol = ncol(A_pos_PSSM), nrow = length(diff_aa),  dimnames = list(diff_aa, colnames(A_pos_PSSM))))
+  }
+
+  if(!identical(rownames(A_neg_PSSM), amino_acids)){
+    diff_aa <- setdiff(amino_acids, rownames(A_neg_PSSM))
+    A_neg_PSSM <- rbind(A_neg_PSSM,
+                        matrix(0, ncol = ncol(A_neg_PSSM), nrow = length(diff_aa),  dimnames = list(diff_aa, colnames(A_neg_PSSM))))
+  }
+
   A_pos_PSSM <- A_pos_PSSM[rownames(A_neg_PSSM), ]
 
   standardized_neg <- predict(preProcess(A_neg_PSSM, method=c("scale", 'center')), A_neg_PSSM)
