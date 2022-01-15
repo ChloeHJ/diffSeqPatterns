@@ -39,8 +39,9 @@ compute_pairwise_distance <- function(peptides, method = 'hamming'){
 #'
 #' @return heatmap colored by distance between peptide sequences
 #' @examples
+#' library(tidyverse)
 #' distance_mtx <- compute_pairwise_distance(peptides = c(pos_peptides[1:50], neg_peptides[1:60]))
-#' col_data <- iedbdata %>% filter(ContactPositions %in% colnames(adjacency_matrix)) %>%
+#' col_data <- iedbdata %>% filter(ContactPositions %in% colnames(distance_mtx)) %>%
 #'   select(ContactPositions, Immunogenicity) %>% distinct() %>%
 #'   column_to_rownames(var =  'ContactPositions')
 #' p <- plot_heatmap_distance_mtx(distance_mtx, col_data)
@@ -115,14 +116,14 @@ plot_network_distance_mtx <- function(distance_mtx, data = NULL,
     color_fac <- unique(data[[color_col]])
     color_dt <- data.frame(color = getPalette(length(color_fac)))
     rownames(color_dt) <- color_fac
-    color_dt <- color_dt %>% rownames_to_column(var = color_col)
+    color_dt <- color_dt %>% tibble::rownames_to_column(var = color_col)
     color_table <- data %>% left_join(color_dt, by = c(color_col))
 
-    V(share.igraph)$Node_color <- color_table$color
+    igraph::V(share.igraph)$Node_color <- color_table$color
   }
 
   #igraph.layout <- layout_(share.igraph, with_dh(weight.edge.lengths = edge_density(share.igraph)/1000))
-  E(share.igraph)$Edge_color <- c('grey')
+  igraph::E(share.igraph)$Edge_color <- c('grey')
 
   if(label_vertex == TRUE){
     p <- plot(share.igraph, vertex.label.color="black" , vertex.size=vertex.size,

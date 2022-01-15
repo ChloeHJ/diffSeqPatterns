@@ -20,30 +20,35 @@
 #' @import dplyr
 #' @import caret
 #' @import ggplot2
-#' @import Biostrings
-#' @import reshape
 #' @import ngram
 #' @import ggrepel
-#' @import igraph
-#' @import PepTools
 #' @import pheatmap
 #' @import stringdist
+#' @import ggseqlogo
+#' @import PepTools
 #' @importFrom grDevices colorRampPalette
 #' @importFrom grDevices png pdf dev.off
 #' @importFrom RColorBrewer brewer.pal brewer.pal.info
 #' @importFrom scales muted
 #' @importFrom data.table rbindlist
 #' @importFrom stats predict
+#' @importFrom stringr str_detect
+#' @importFrom S4Vectors unique.Vector
+#' @importFrom tibble rownames_to_column
+#' @importFrom magrittr %>%
+#' @importFrom igraph graph_from_adjacency_matrix E V plot.igraph
+#' @importFrom reshape melt
+#' @importFrom Biostrings pairwiseAlignment AAString AAStringSet
 #'
 #' @docType package
 #' @name diffSeqPatterns
 if(getRversion() >= "2.15.1")  utils::globalVariables(c( "pos_prop", "neg_prop", "pattern",
                                                          "count_neg",   "count_pos", "normCount_pos",
                                                          "normCount_neg", "ratio",
-                                                         "ratioQual", 'counts', 'ngrams', 'rownames_to_column',
-                                                         'label', 'position', 'aa', 'ggseqlogo',
-                                                          'freq', 'prop', 'unique.Vector' ,'pos_freq',
-                                                         'neg_freq', 'str_detect'
+                                                         "ratioQual", 'counts', 'ngrams',
+                                                         'label', 'position', 'aa',
+                                                         'freq', 'prop', 'pos_freq',
+                                                         'neg_freq', 'score', 'diff_pssm_mtx'
                                                          ))
 NULL
 

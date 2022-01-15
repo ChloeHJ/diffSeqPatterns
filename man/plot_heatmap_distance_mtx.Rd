@@ -19,8 +19,9 @@ heatmap colored by distance between peptide sequences
 Plot heatmap from distance adjacency matrix
 }
 \examples{
+library(tidyverse)
 distance_mtx <- compute_pairwise_distance(peptides = c(pos_peptides[1:50], neg_peptides[1:60]))
-col_data <- iedbdata \%>\% filter(ContactPositions \%in\% colnames(adjacency_matrix)) \%>\%
+col_data <- iedbdata \%>\% filter(ContactPositions \%in\% colnames(distance_mtx)) \%>\%
   select(ContactPositions, Immunogenicity) \%>\% distinct() \%>\%
   column_to_rownames(var =  'ContactPositions')
 p <- plot_heatmap_distance_mtx(distance_mtx, col_data)

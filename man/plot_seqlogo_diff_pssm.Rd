@@ -4,12 +4,10 @@
 \alias{plot_seqlogo_diff_pssm}
 \title{Plot differential PSSM into sequence logos}
 \usage{
-plot_seqlogo_diff_pssm(pos_peptides, neg_peptides)
+plot_seqlogo_diff_pssm(diff_pssm)
 }
 \arguments{
-\item{pos_peptides}{list of peptides analyzed for enrichment}
-
-\item{neg_peptides}{list of peptides analyzed for depletion}
+\item{diff_pssm}{output matrix from \code{compute_diff_pssm}}
 }
 \value{
 sequence logo plot
@@ -19,6 +17,6 @@ Plot differential PSSM into sequence logos
 }
 \examples{
 diff_pssm_mtx <- compute_diff_pssm(pos_peptides, neg_peptides)
-p <- plot_seqlogo_diff_pssm(pos_peptides, neg_peptides)
+p <- plot_seqlogo_diff_pssm(diff_pssm_mtx)
 
 }

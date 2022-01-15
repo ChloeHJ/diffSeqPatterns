@@ -32,7 +32,7 @@ alignment matrix
 Compute pairwise alignment between peptides
 }
 \examples{
-adjacency_matrix <- compute_pairwise_distance(peptides = c(pos_peptides[1:50], neg_peptides[1:60]))
+adjacency_matrix <- compute_pairwise_alignment(peptides = c(pos_peptides[1:50], neg_peptides[1:60]))
 adjacency_matrix_positive <- compute_pairwise_alignment(peptides = pos_peptides[1:50])
 adjacency_matrix_negative <- compute_pairwise_alignment(peptides = neg_peptides[1:60])
 

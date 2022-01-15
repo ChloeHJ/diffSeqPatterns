@@ -22,5 +22,11 @@ Imports:
   scales,
   data.table,
   RColorBrewer,
-  stringdist
+  stringdist,
+  stringr,
+  S4Vectors, 
+  tibble,
+  magrittr,
+  ggseqlogo,
+  tidyverse
 RoxygenNote: 7.1.1

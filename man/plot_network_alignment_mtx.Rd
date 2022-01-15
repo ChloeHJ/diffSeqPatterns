@@ -46,7 +46,7 @@ Network graph showing distance between peptide sequences
 Plot network graph from pairwise alignment matrix
 }
 \examples{
-adjacency_matrix <- compute_pairwise_distance(peptides = c(pos_peptides[1:50], neg_peptides[1:60]))
+adjacency_matrix <- compute_pairwise_alignment(peptides = c(pos_peptides[1:50], neg_peptides[1:60]))
 p1 <- plot_network_alignment_mtx(adjacency_matrix, data = NULL)
 p2 <- plot_network_alignment_mtx(adjacency_matrix, data = iedbdata,
                            peptide_id_col = 'ContactPositions',  color_col = 'Immunogenicity',

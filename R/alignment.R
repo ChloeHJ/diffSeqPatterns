@@ -11,7 +11,7 @@
 #' @return alignment matrix
 #'
 #' @examples
-#' adjacency_matrix <- compute_pairwise_distance(peptides = c(pos_peptides[1:50], neg_peptides[1:60]))
+#' adjacency_matrix <- compute_pairwise_alignment(peptides = c(pos_peptides[1:50], neg_peptides[1:60]))
 #' adjacency_matrix_positive <- compute_pairwise_alignment(peptides = pos_peptides[1:50])
 #' adjacency_matrix_negative <- compute_pairwise_alignment(peptides = neg_peptides[1:60])
 #'
@@ -44,8 +44,9 @@ compute_pairwise_alignment <- function(peptides, substitutionMatrix = 'BLOSUM62'
 #' @return heatmap colored by distance between peptide sequences
 #'
 #' @examples
-#' adjacency_matrix <- compute_pairwise_distance(peptides = c(pos_peptides[1:50], neg_peptides[1:60]))
-#' adjacency_matrix_positive <- compute_pairwise_distance(peptides = pos_peptides[1:50])
+#' library(tidyverse)
+#' adjacency_matrix <- compute_pairwise_alignment(peptides = c(pos_peptides[1:50], neg_peptides[1:60]))
+#' adjacency_matrix_positive <- compute_pairwise_alignment(peptides = pos_peptides[1:50])
 #'
 #' col_data <- iedbdata %>% filter(ContactPositions %in% colnames(adjacency_matrix)) %>%
 #'   select(ContactPositions, Immunogenicity) %>% distinct() %>%
@@ -83,7 +84,7 @@ plot_heatmap_alignment_mtx <- function(adjacency_matrix, col_data){
 #' @return Network graph showing distance between peptide sequences
 #'
 #' @examples
-#' adjacency_matrix <- compute_pairwise_distance(peptides = c(pos_peptides[1:50], neg_peptides[1:60]))
+#' adjacency_matrix <- compute_pairwise_alignment(peptides = c(pos_peptides[1:50], neg_peptides[1:60]))
 #' p1 <- plot_network_alignment_mtx(adjacency_matrix, data = NULL)
 #' p2 <- plot_network_alignment_mtx(adjacency_matrix, data = iedbdata,
 #'                            peptide_id_col = 'ContactPositions',  color_col = 'Immunogenicity',
@@ -114,14 +115,14 @@ plot_network_alignment_mtx <- function(adjacency_matrix, data = NULL,
     color_fac <- unique(data[[color_col]])
     color_dt <- data.frame(color = getPalette(length(color_fac)))
     rownames(color_dt) <- color_fac
-    color_dt <- color_dt %>% rownames_to_column(var = color_col)
+    color_dt <- color_dt %>% tibble::rownames_to_column(var = color_col)
     color_table <- data %>% left_join(color_dt, by = c(color_col))
 
-    V(share.igraph)$Node_color <- color_table$color
+    igraph::V(share.igraph)$Node_color <- color_table$color
   }
 
   #igraph.layout <- layout_(share.igraph, with_dh(weight.edge.lengths = edge_density(share.igraph)/1000))
-  E(share.igraph)$Edge_color <- c('grey')
+  igraph::E(share.igraph)$Edge_color <- c('grey')
 
   if(label_vertex == TRUE){
     p <- plot(share.igraph, vertex.label.color="black" , vertex.size=vertex.size,

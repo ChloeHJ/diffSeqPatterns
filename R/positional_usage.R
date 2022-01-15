@@ -60,26 +60,31 @@ plot_raster_diff_pssm <- function(diff_pssm){
 
 
 #' Plot differential PSSM into sequence logos
-#' @inheritParams diffSeqPatterns
+#' @param diff_pssm output matrix from \code{compute_diff_pssm}
 #'
 #' @return sequence logo plot
 #'
 #' @examples
 #' diff_pssm_mtx <- compute_diff_pssm(pos_peptides, neg_peptides)
-#' p <- plot_seqlogo_diff_pssm(pos_peptides, neg_peptides)
+#' p <- plot_seqlogo_diff_pssm(diff_pssm_mtx)
 #'
 #' @export
-plot_seqlogo_diff_pssm <- function(pos_peptides, neg_peptides){
-  pos_pssm <- pos_peptides %>%  pssm_freqs %>% pssm_bits %>% t
-  neg_pssm <-  neg_peptides %>%  pssm_freqs %>% pssm_bits %>% t
-  p <- (pos_pssm - neg_pssm) %>%  ggseqlogo(method="custom")
+plot_seqlogo_diff_pssm <- function(diff_pssm){
+
+  p <- diff_pssm_mtx %>% ggseqlogo(method="custom")
+  # pos_pssm <- pos_peptides %>%  pssm_freqs %>% t
+  # neg_pssm <-  neg_peptides %>%  pssm_freqs %>%  t
+  #
+  # standardized_pos <- predict(preProcess(pos_pssm, method=c("scale", 'center')), pos_pssm)
+  # standardized_neg <- predict(preProcess(neg_pssm, method=c("scale", 'center')), neg_pssm)
+  # A_npos_pssm <- standardized_pos - standardized_neg
+  # A_npos_pssm %>% ggseqlogo(method="custom")
+  #
+  # p <- (pos_pssm - neg_pssm) %>%  ggseqlogo(method="custom")
+  # p
+
   return(p)
 }
-
-
-
-
-
 
 
 

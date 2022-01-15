@@ -10,8 +10,6 @@
 compute_positional_kmers <- function(pos_peptides, neg_peptides){
 
   generate_motifs <- function(kmer_seqVector, k){
-    require(S4Vectors)
-
     #1-mer
     # aa <- strsplit("ARNDCQEGHILKMFPSTWYV", "")[[1]]
     # k1mer <- NULL
