@@ -12,6 +12,7 @@ DMF5_pos_peptides
 }
 \description{
 This is list of peptide sequences at contact positions annotated 'Positive'
-against DMF5 T cell screening, analyzed for enrichment
+against DMF5 T cell screening, analyzed for enrichment.
+Used for demonstrations in vignette and application note.
 }
 \keyword{datasets}

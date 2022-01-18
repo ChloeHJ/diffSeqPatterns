@@ -11,6 +11,6 @@ data table with peptides at their contact positions and their specificity agains
 DMF5_antigen_table
 }
 \description{
-This is table used for color annotations
+This is table used for color annotations. Used for demonstrations in vignette and application note.
 }
 \keyword{datasets}

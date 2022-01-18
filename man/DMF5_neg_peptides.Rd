@@ -12,6 +12,7 @@ DMF5_neg_peptides
 }
 \description{
 This is list of peptide sequences at contact positions annotated 'Negative'
-from DMF5 T cell screening, analyzed for depletion
+from DMF5 T cell screening, analyzed for depletion.
+Used for demonstrations in vignette and application note.
 }
 \keyword{datasets}

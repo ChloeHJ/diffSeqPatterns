@@ -9,6 +9,8 @@
 #' \item Effectively visualize patterns;
 #' \item Can be applied to any set of two peptide groups;
 #' }
+#' To learn more about proBatch, start with the vignettes:
+#' \code{browseVignettes(package = "diffSeqPatterns")}
 #'
 #'
 #' @section Section:
@@ -54,5 +56,4 @@ NULL
 
 
 
-#### To learn more about proBatch, start with the vignettes:
-##### \code{browseVignettes(package = "diffSeqPatterns")}
+
