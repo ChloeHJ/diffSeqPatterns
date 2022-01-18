@@ -20,10 +20,10 @@ knitr::opts_chunk$set(
 
 diffSeqPatterns is an R package to comprehensively analyse differential sequence patterns between any two groups of peptides. The diffSeqPatterns provides functionality to analyse and visualize differential patterns on:
 
-- Position-specific amino acid usage: Enrichment or depletion of amino acid usage in each positions of peptides having same lengths. Enrichment scores can be visualized by heatmap or sequence logo. 
-- N-grams: An n-gram is a contiguous sequence of n-amino acids, often used to discover motifs in biological sequences that are functionally related. Top differential n-grams can be visualized by scatter or bar plot. 
-- Position-specific k-mer motifs: A position-specific k-mer is contiguous or non-contiguous sequence of k amino acids, where e.g. .M.W. denotes MW pattern at P2 and P4 of 5 amino acid peptides (restricted to peptides of same lengths). Top position-specific k-mer motifs are visualized by scatter or bar plot. 
-- Inter-sequence distance or alignment score: Pairwise distance (e.g. Hamming, levenshtein, Jaccard distance) or global/local alignment using substitution matrix of interest (e.g. BLOSUM62) to analyse sequence homology or evolutionary relationship between peptides. Clusters of peptides sharing high sequence homology or evolutionary relationship can be visualized by heatmap or network graph. 
+- **Position-specific amino acid usage**: Enrichment or depletion of amino acid usage in each positions of peptides having same lengths. Enrichment scores can be visualized by heatmap or sequence logo. 
+- **N-grams**: An n-gram is a contiguous sequence of n-amino acids, often used to discover motifs in biological sequences that are functionally related. Top differential n-grams can be visualized by scatter or bar plot. 
+- **Position-specific k-mer motifs**: A position-specific k-mer is contiguous or non-contiguous sequence of k amino acids, where e.g. .M.W. denotes MW pattern at P2 and P4 of 5 amino acid peptides (restricted to peptides of same lengths). Top position-specific k-mer motifs are visualized by scatter or bar plot. 
+- **Inter-sequence distance or alignment score**: Pairwise distance (e.g. Hamming, levenshtein, Jaccard distance) or global/local alignment using substitution matrix of interest (e.g. BLOSUM62) to analyse sequence homology or evolutionary relationship between peptides. Clusters of peptides sharing high sequence homology or evolutionary relationship can be visualized by heatmap or network graph. 
 
 We believe analysis and visualization tools in diffSeqPatterns will facilitate identification of conserved patterns in biologically active peptides, such as cancer neoepitopes, SARS-CoV-2 epitopes or antimicrobial peptides. 
 
