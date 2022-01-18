@@ -1,9 +1,6 @@
 # diffSeqPatterns
-R package for analyzing differential peptide sequence patterns between two groups
 
-## General Overview
-
-diffSeqPatterns is an R package to comprehensively analyse differential sequence patterns between any two groups of peptides. The diffSeqPatterns provides functionality to analyse and visualize differential patterns on:
+diffSeqPatterns is an R package to comprehensively analyse differential sequence patterns between any two groups of peptides. The diffSeqPatterns provides functionality to analyse and visualize differential patterns in:
 
 - Position-specific amino acid usage 
 - N-grams: contiguous sequences of n-amino acids
