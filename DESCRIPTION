@@ -8,6 +8,7 @@ Description: This packages examines differential sequence patterns between two g
 License: GPL-2
 Encoding: UTF-8
 LazyData: true
+Depends: R (>= 3.5.0)
 Imports:
   dplyr,
   caret,
