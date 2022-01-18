@@ -1,0 +1,155 @@
+---
+title: "diffSeqPatterns"
+author: "Chloe H. Lee"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  echo=TRUE, warning=FALSE, message=FALSE, fig.pos = 'h'
+)
+```
+
+
+diffSeqPatterns is an R package to comprehensively analyse differential sequence patterns between any two groups of peptides. The diffSeqPatterns provides functionality to analyse and visualize differential patterns on:
+
+- Position-specific amino acid usage: Enrichment or depletion of amino acid usage in each positions of peptides having same lengths. Enrichment scores can be visualized by heatmap or sequence logo. 
+- N-grams: An n-gram is a contiguous sequence of n-amino acids, often used to discover motifs in biological sequences that are functionally related. Top differential n-grams can be visualized by scatter or bar plot. 
+- Position-specific k-mer motifs: A position-specific k-mer is contiguous or non-contiguous sequence of k amino acids, where e.g. .M.W. denotes MW pattern at P2 and P4 of 5 amino acid peptides (restricted to peptides of same lengths). Top position-specific k-mer motifs are visualized by scatter or bar plot. 
+- Inter-sequence distance or alignment score: Pairwise distance (e.g. Hamming, levenshtein, Jaccard distance) or global/local alignment using substitution matrix of interest (e.g. BLOSUM62) to analyse sequence homology or evolutionary relationship between peptides. Clusters of peptides sharing high sequence homology or evolutionary relationship can be visualized by heatmap or network graph. 
+
+We believe analysis and visualization tools in diffSeqPatterns will facilitate identification of conserved patterns in biologically active peptides, such as cancer neoepitopes, SARS-CoV-2 epitopes or antimicrobial peptides. 
+
+## diffSeqPattern package
+
+To install package from CRAN:
+```{r, fig.show='hold'}
+library(diffSeqPatterns)
+```
+
+
+To install the latest version of diffSeqPatterns package:
+```{r install_proBatch, fig.show='hold', eval = FALSE}
+#install the development version from GitHub:
+install.packages('devtools')
+devtools::install_github('ChloeHJ/diffSeqPatterns', build_vignettes = TRUE)
+```
+
+
+## Data
+
+The input data are two lists of peptide sequences i.e. Positive peptides to analyse for enrichment and Negative peptides to analyse for depletion. The Negative data can be either experimentally validated ‘negative’ peptides or a list of randomly generated peptides to serve as a background. 
+
+We demonstrated the diffSeqPatterns on DMF5 T cell antigens to investigate sequence patterns associated with T cell immune response. Gee et al. used yeast-display peptide-HLA-A*02:01 library to screen for antigens against DMF5 T cells^[Gee, M. H. et al. Antigen Identification for Orphan T Cell Receptors Expressed on Tumor-Infiltrating Lymphocytes. Cell 172, 549-563.e16 (2018).]. We retrieved sequences identified from round 3 deep-sequencing of the DMF5 10mer library (61 unique peptides) and analysed for enriched sequence patterns compared to 200 randomly sampled peptides from 10mer library (‘Background’)^[Joglekar, A. V. et al. T cell antigen discovery via signaling and antigen-presenting bifunctional receptors. Nature Methods 16, 191–198 (2019).]. As previous studies showed contact positions i.e. P3-P9 of 10aa peptides are associated with T cell recognition3, we analysed sequence patterns in P3-P9^[Calis, J. J. A. et al. Properties of MHC Class I Presented Peptides That Enhance Immunogenicity. PLOS Computational Biology 9, e1003266 (2013).].
+
+
+- `DMF5_pos_peptides`: 55 unique peptides recognized by DMF5 T cells at their contact positions i.e. P3-P9 of 10 amino acid peptide 
+- `DMF5_neg_peptides`: 200 randomly sampled non-epitopes at contact positions 
+
+```{r, fig.show='hold'}
+library(diffSeqPatterns)
+data('DMF5_pos_peptides', 'DMF5_neg_peptides', 'DMF5_antigen_table',  package = 'diffSeqPatterns')
+```
+
+## Position-specific amino acid usage
+We generate probability frequency of each amino acids in each position^[Pagès, H., Aboyoun, P., Gentleman, R. & DebRoy, S. Biostrings: Efficient manipulation of biological strings. (Bioconductor version: Release (3.14), 2022). doi:10.18129/B9.bioc.Biostrings.] using position specific scoring matrix (PSSM), standardize PSSMs by centre and scaling, and compute difference in standardised PSSMs between Positive and Negative peptides. Due to position specificity, analysis is restricted to peptides having same lengths. 
+
+```{r, fig.show='hold'}
+diff_pssm_mtx <- compute_diff_pssm(DMF5_pos_peptides, DMF5_neg_peptides)
+knitr::kable(diff_pssm_mtx)
+```
+
+Enrichment scores can be visualized by heatmap or sequence logo. 
+```{r, fig.show='hold'}
+plot_raster_diff_pssm(diff_pssm_mtx)
+plot_seqlogo_diff_pssm(diff_pssm_mtx)
+```
+
+
+
+## N-grams
+We generate all possible n-grams from input peptides^[Schmidt, D. & Heckendorf, C. ngram: Fast n-Gram ‘Tokenization’. (2021).], count number of Positive and Negative peptides containing the n-grams, normalize frequency by total number of Positive and Negative peptides respectively, and compute ration-gram = normalized # of Positive peptides containing the n-gram / normalized # of Negative peptides containing the n-gram. `ngram_lengths` parameters allows users to use n i.e. `ngram_lengths = c(2, 3, 4, 5)` means compute statistics for all 2/3/4/5-grams. 
+```{r, fig.show='hold', fig.width=10, fig.height=3}
+ngram_df <- compute_ngrams(DMF5_pos_peptides, DMF5_neg_peptides, ngram_lengths = c(2, 3, 4, 5))
+knitr::kable(head(ngram_df, 5))
+```
+
+
+Frequencies of n-grams in Positive and Negative peptide lists can be visualized by scatter plot. Users can denote `ratio_threshold` and  `n_threshold` to change thresholds to label n-grams. For n-grams that are present in both Positive and Negative groups, `ratio_threshold` to denote enrichment and depletion ratio to label n-grams, i.e. `ratio_threshold = 4` means only show n-grams that are 4x enriched or depleted. For n-grams that are only present in either Positive or Negative peptide list, `n_threshold` denotes number of peptides containing the n-gram i.e. n_threshold = 4 means only show n-grams that are present in equal to or more than 4 peptides. 
+
+```{r, fig.show='hold', fig.width=4, fig.height=2.5}
+plot_point_ngrams(ngram_df, ratio_threshold = 10, n_threshold = 10) 
+```
+
+
+```{r, fig.show='hold', fig.width=5, fig.height=2}
+plot_bar_top_ngrams(ngram_df, top_n = 20)
+```
+
+
+
+## Position-specific k-mer motifs
+A position-specific k-mer is contiguous or non-contiguous sequence of k amino acids, where e.g. .M.W. denotes MW pattern at P2 and P4 of 5 amino acid peptides. Due to position specificity, this analysis is restricted to peptides of same lengths. Similar to n-grams, we compute ratiok-mer = normalized # of Positive peptides containing the positional k-mer / normalized # of Negative peptides containing the positional k-mer.
+
+```{r, fig.show='hold'}
+positional_kmer_data <- compute_positional_kmers(DMF5_pos_peptides, DMF5_neg_peptides)
+knitr::kable(head(positional_kmer_data, 5))
+
+```
+
+```{r, fig.show='hold', fig.width=4, fig.height=2.5}
+plot_point_positional_kmers(positional_kmer_data, ratio_threshold = 25,  n_threshold = 10)
+```
+
+Top differential position-specific k-mers can be visualized by barplot. Users can denote top # of k-mers to plot by changing `top_n` parameter.
+```{r, fig.show='hold', fig.width=7.5, fig.height=2}
+plot_bar_posiitonal_kmers(positional_kmer_data, top_n = 20) 
+```
+
+## Inter-sequence distance or alignment score
+To analyse sequence homology or evolutionary relationship between peptides, users can compute 
+pairwise distance (e.g. Hamming, levenshtein, Jaccard distance) or global/local alignment using substitution matrix of interest (e.g. BLOSUM62) and compare inter-sequence distance between two groups. The options for distance metric are available in `stringdist` package and alignment score in `pairwiseAlignment` function in `Biostring` package. 
+
+For illustration purpose, `DMF5_pos_peptides` and only first 60 `DMF5_neg_peptides` were put as input sequence for pairwise alignment score and `DMF5_pos_peptides` for distance. 
+
+```{r, fig.show='hold'}
+alignment_matrix <- compute_pairwise_alignment(peptides = c(DMF5_pos_peptides, DMF5_neg_peptides[1:20]))
+distance_mtx <- compute_pairwise_distance(peptides = c(DMF5_pos_peptides))
+
+knitr::kable(alignment_matrix[1:8, 1:8])
+
+```
+
+Clusters of peptides sharing high sequence homology or evolutionary relationship can be visualized by heatmap or network graph. Users can choose `distance_threshold` or `alignment_threshold` in `plot_network_distance_mtx` or `plot_network_alignment_mtx`, respectively to denote the threshold to plot edges between peptides. 
+
+```{r, fig.show='hold', fig.width=8, fig.height=7}
+library(tibble)
+library(dplyr)
+col_data <- DMF5_antigen_table %>% column_to_rownames(var = 'ContactPositions' )
+plot_heatmap_alignment_mtx(alignment_matrix, col_data)
+#plot_heatmap_distance_mtx(distance_mtx, col_data)
+```
+
+```{r, fig.show='hold', fig.width=6, fig.height=6}
+plot_network_alignment_mtx(alignment_matrix, data = DMF5_antigen_table, # need to change data 
+                           peptide_id_col = 'ContactPositions',  color_col = 'TCR',
+                           alignment_threshold = 0,
+                           vertex.label.degree = 0,  edge.weight = 0.2,
+                           vertex.size= 5,  vertex.label.cex = 0.7)
+
+plot_network_distance_mtx(distance_mtx, data = DMF5_antigen_table,
+                           peptide_id_col = 'ContactPositions',  color_col = 'TCR',
+                           distance_threshold = 3,
+                           vertex.label.degree = 0,  edge.weight = 0.2,
+                           vertex.size= 5,  vertex.label.cex = 0.7, label_vertex=TRUE)
+```
+
+
+

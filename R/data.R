@@ -24,3 +24,27 @@
 "neg_peptides"
 
 
+#' Positive peptide list from DMF5 selection
+#'
+#' This is list of peptide sequences at contact positions annotated 'Positive'
+#' against DMF5 T cell screening, analyzed for enrichment.
+#' Used for demonstrations in vignette and application note.
+#'
+#' @format A list of 55 peptides
+"DMF5_pos_peptides"
+
+#' Negative peptide list from DMF5 selection
+#'
+#' This is list of peptide sequences at contact positions annotated 'Negative'
+#' from DMF5 T cell screening, analyzed for depletion.
+#' Used for demonstrations in vignette and application note.
+#'
+#' @format A list of 200 peptides
+"DMF5_neg_peptides"
+
+#' Table of 55 DMF5 antigens and 200 background peptides annotated for their T cell specificity
+#'
+#' This is table used for color annotations. Used for demonstrations in vignette and application note.
+#'
+#' @format data table with peptides at their contact positions and their specificity against DMF5 T cells
+"DMF5_antigen_table"
