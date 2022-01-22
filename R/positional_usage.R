@@ -83,7 +83,7 @@ plot_raster_diff_pssm <- function(diff_pssm){
 #' @export
 plot_seqlogo_diff_pssm <- function(diff_pssm){
 
-  p <- diff_pssm_mtx %>% ggseqlogo(method="custom")
+  p <- diff_pssm %>% ggseqlogo(method="custom")
   # pos_pssm <- pos_peptides %>%  pssm_freqs %>% t
   # neg_pssm <-  neg_peptides %>%  pssm_freqs %>%  t
   #
