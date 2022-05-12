@@ -150,7 +150,7 @@ plot_bar_posiitonal_kmers <- function(positional_kmer_data, top_n = 10,
                           dat %>% filter(ratioQual == 'only_in_neg') %>% arrange(desc(count_neg)) %>% head(n=top_n)) %>%
     dplyr::select(pattern, count_neg, count_pos) %>% as.data.frame()
 
-  order_motifs <- motifDF_select$pattern
+  order_motifs <- motifDF_select$pattern %>% unique
   data_plot <- motifDF_select %>% melt(id.vars = "pattern"); colnames(data_plot) <- c('pattern', 'class', 'counts')
   data_plot$pattern <- factor(data_plot$pattern, levels=order_motifs)
   data_plot <- data_plot %>%  mutate(class = ifelse(class == 'count_neg', 'Negative', ifelse(class == 'count_pos', 'Positive', NA))) %>%

@@ -100,7 +100,7 @@ plot_bar_top_ngrams <- function(ngram_table, top_n = 10,
                           dat %>% filter(ratioQual == 'only_in_neg') %>% arrange(desc(neg_freq)) %>% head(n=top_n)) %>%
     dplyr::select(ngrams, pos_freq, neg_freq) %>% as.data.frame()
 
-  order_motifs <- motifDF_select$ngrams
+  order_motifs <- motifDF_select$ngrams %>% unique
   data_plot <- motifDF_select %>% melt(id.vars = "ngrams"); colnames(data_plot) <- c('ngrams', 'class', 'counts')
   data_plot$ngrams <- factor(data_plot$ngrams, levels=order_motifs)
   data_plot <- data_plot %>%  mutate(class = ifelse(class == 'neg_freq', 'Negative', ifelse(class == 'pos_freq', 'Positive', NA))) %>%
